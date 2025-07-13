@@ -1,70 +1,106 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Login Sederhana - LocalStorage</title>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Muhamad Wildan</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="profile-container">
+  <div class="header-bg"></div>
 
-<div class="login-box" id="loginBox">
-  <h2>Login</h2>
-  <form id="loginForm">
-    <label>Username:
-      <input type="text" id="username" required>
-    </label>
-    <label>Password:
-      <input type="password" id="password" required>
-    </label>
-    <button type="submit">Login</button>
-  </form>
+  <div class="profile-photo-wrapper">
+    <img src="profile.jpg" alt="profile" class="profile-photo" />
+  </div>
+
+  <div class="header-text">
+    <h1>Muhamad Wildan</h1>
+    <p class="subtitle">He/Him • Web Developer</p>
+    <p>Jakarta, Indonesia • <a href="https://muhamad.wildan.com">muhamad.wildan.com</a></p>
+    <p><strong>Informatika</strong> — Universitas Ipwija</p>
+  </div>
+
+  <div class="action-buttons">
+    <button>Open to work</button>
+    <button>Add profile section</button>
+    <button>profile</button>
+<a href='https://muhamadwildan66.github.io/pw/web/admin.html'> Admin </a>
+  </div>
+
+  <div id="content"  >
+
+
+  </div>
+
+
+
+  <div class="content-card">
+    <h3>Sosial Media <small></small></h3>
+    <ul>
+      <li><strong>linkedin :</strong> http://linkedin.com/in/wildan </li>
+      <li><strong>credly :</strong> https://www.credly.com/users/muhamad wildan</li>
+    </ul>
+  </div>
 </div>
 
-<div class="login-box" id="welcomeBox" style="display: none;">
-  <h2 id="welcome">Halo, User!</h2>
-  <button onclick="logout()">Logout</button>
-</div>
 
-<script>
-  // Simulasi user login (hardcoded)
-  const users = {
-    admin: '12345',
-    user: 'pass'
-  };
+<script type="module">
+// Import Supabase client dari CDN
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-  // Cek apakah user sudah login
-  function checkLogin() {
-    const session = localStorage.getItem('sessionUser');
-    if (session) {
-      document.getElementById('loginBox').style.display = 'none';
-      document.getElementById('welcomeBox').style.display = 'block';
-      document.getElementById('welcome').innerText = `Halo, ${session}!`;
-    }
+
+const SUPABASE_URL = 'https://xaqnsczeyoevysmvofho.supabase.co'
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhhcW5zY3pleW9ldnlzbXZvZmhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIzODQ3NjEsImV4cCI6MjA2Nzk2MDc2MX0.BTf-lkXz5k4xNo9VsxnZH_qbDrnWJUywz3_sWuaMhoU'
+
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+// Elemen DOM
+// const addBtn = document.getElementById('addBtn')
+// const dataBody = document.getElementById('dataBody')
+// const crudForm = document.getElementById('crudForm')
+// const recordIdInput = document.getElementById('recordId')
+// const nameInput = document.getElementById('nameInput')
+// const emailInput = document.getElementById('emailInput')
+// const deleteBtn = document.getElementById('deleteBtn')
+// const cancelBtn = document.getElementById('cancelBtn')
+
+const content = document.getElementById('content')
+
+// Fungsi load data ke tabel
+async function loadData() {
+  const { data, error } = await supabase.from('web').select('*').order('id')
+  if (error) {
+    alert('Error loading data: ' + error.message)
+    return
   }
+  content.innerHTML = ''
+  let  out=``;
+  data.forEach(row => {
 
-  // Tangani login
-  document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const uname = document.getElementById('username').value.trim();
-    const pass = document.getElementById('password').value.trim();
+    out+=`
 
-    if (users[uname] && users[uname] === pass) {
-      localStorage.setItem('sessionUser', uname);
-      checkLogin();
-    } else {
-      alert('Username atau password salah!');
-    }
-  });
+    <div class="content-card">
+    <h2>${row.judul}</h2>
+    <p>${row.isi}
+</p>
 
-  // Logout
-  function logout() {
-    localStorage.removeItem('sessionUser');
-    location.reload();
-  }
+  </div>
+  `
 
-  // Jalankan saat pertama dimuat
-  checkLogin();
+  })
+  content.innerHTML = out
+
+
+}
+
+ // Load data saat halaman siap
+window.addEventListener('DOMContentLoaded', loadData)
+
 </script>
+
+
 
 </body>
 </html>
