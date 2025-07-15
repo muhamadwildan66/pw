@@ -43,8 +43,8 @@
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-const SUPABASE_URL = 'https://ithpjtizfwxsrjsgogha.supabase.co'
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0aHBqdGl6Znd4c3Jqc2dvZ2hhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1Mzg3OTIsImV4cCI6MjA2ODExNDc5Mn0.J3a-EKaRXltWFTj0LNGaUVEi8aAPV6kq6dMoR78n-Hw'
+const SUPABASE_URL = 'https://xaqnsczeyoevysmvofho.supabase.co'
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhhcW5zY3pleW9ldnlzbXZvZmhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIzODQ3NjEsImV4cCI6MjA2Nzk2MDc2MX0.BTf-lkXz5k4xNo9VsxnZH_qbDrnWJUywz3_sWuaMhoU'
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 const content = document.getElementById('content')
@@ -57,7 +57,7 @@ async function login() {
   })
 
   if (error) {
-    alert('Login gagal: ' + error.message)
+    alert('Login berhasil: ' + login.berhasil)
     return
   }
 
